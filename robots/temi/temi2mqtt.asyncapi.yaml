@@ -1,0 +1,46 @@
+asyncapi: '2.6.0'
+info:
+  title: Temi Robot Extension
+  version: '1.0.0'
+  description: |
+    Temi-specific extensions to the Robo2MQTT Core API.
+
+defaultContentType: application/json
+
+components:
+  parameters:
+    robotId:
+      description: Unique robot ID
+      schema:
+        type: string
+
+  messages:
+    BatteryStatusMessage:
+      $ref: ../../core/schema/common.yaml#/components/messages/BatteryStatusMessage
+
+    LaunchSettingsCommandMessage:
+      $ref: ../../core/schema/apps.yaml#/components/messages/LaunchSettingsCommand
+
+channels:
+
+  ##
+  ## Battery events
+  ##
+  temi/{robotId}/event/battery:
+    parameters:
+      robotId:
+        $ref: '#/components/parameters/robotId'
+    publish:
+      message:
+        $ref: '#/components/messages/BatteryStatusMessage'
+
+  ##
+  ## App management
+  ##
+  temi/{robotId}/cmd/apps/launchSettings:
+    parameters:
+      robotId:
+        $ref: '#/components/parameters/robotId'
+    subscribe:
+      message:
+        $ref: '#/components/messages/LaunchSettingsCommand'

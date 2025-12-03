@@ -1,0 +1,22 @@
+package {{packageName}}.events
+
+import org.json.JSONObject
+
+/**
+ * AUTO-GENERATED FILE — DO NOT EDIT
+ *
+ * Event: {{eventName}}
+ */
+data class {{className}}Event(
+    {{#each fields}}
+    val {{name}}: {{type}}{{#unless @last}},{{/unless}}
+    {{/each}}
+) {
+    fun toJson(): String {
+        val json = JSONObject()
+        {{#each fields}}
+        json.put("{{name}}", {{name}})
+        {{/each}}
+        return json.toString()
+    }
+}

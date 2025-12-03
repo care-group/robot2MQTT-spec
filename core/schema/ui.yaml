@@ -1,0 +1,15 @@
+components:
+  messages:
+    AskYesNo:
+      payload:
+        type: object
+        properties:
+          questionId: { type: string }
+          text: { type: string }
+
+    UIAnswer:
+      payload:
+        type: object
+        properties:
+          questionId: { type: string }
+          answer: { type: string }

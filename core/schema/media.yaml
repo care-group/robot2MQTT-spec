@@ -1,0 +1,16 @@
+components:
+  messages:
+    MediaOffer:
+      payload:
+        type: object
+        properties:
+          sdp: { type: string }
+          type: { type: string }
+
+    MediaIce:
+      payload:
+        type: object
+        properties:
+          candidate: { type: string }
+          sdpMid: { type: string }
+          sdpMLineIndex: { type: integer }

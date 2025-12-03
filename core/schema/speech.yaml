@@ -1,0 +1,8 @@
+components:
+  messages:
+    SayCommand:
+      payload:
+        type: object
+        properties:
+          text: { type: string }
+          interrupt: { type: boolean }

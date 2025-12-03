@@ -1,0 +1,40 @@
+components:
+  messages:
+
+    StartApp:
+      payload:
+        type: object
+        properties:
+          package:
+            type: string
+        required:
+          - package
+
+    AppList:
+      payload:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            package:
+              type: string
+          required:
+            - name
+            - package
+
+    LaunchSettingsCommand:
+      summary: "Command to open Temi system settings screen."
+      payload:
+        type: object
+        properties:
+          action:
+            type: string
+            enum: ["open"]
+          screen:
+            type: string
+            enum: ["settings"]
+        required:
+          - action
+          - screen

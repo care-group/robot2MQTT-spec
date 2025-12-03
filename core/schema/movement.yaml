@@ -1,0 +1,14 @@
+components:
+  messages:
+    GoToCommand:
+      payload:
+        type: object
+        properties:
+          location:
+            type: string
+    MovementStatus:
+      payload:
+        type: object
+        properties:
+          location: { type: string }
+          status: { type: string }

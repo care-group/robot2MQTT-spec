@@ -2,7 +2,7 @@ name: Publish Generated Android
 on:
   push:
     branches: [ main ]  # adjust if needed
-
+  workflow_dispatch:
 jobs:
   generate:
     runs-on: ubuntu-latest

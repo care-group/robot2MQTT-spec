@@ -43,4 +43,4 @@ channels:
         $ref: '#/components/parameters/robotId'
     subscribe:
       message:
-        $ref: '#/components/messages/LaunchSettingsCommand'
+        $ref: '#/components/messages/LaunchSettingsCommandMessage'

@@ -18,16 +18,16 @@ class {{className}}Capability(
     // Commands implemented by this capability
     fun supportedCommands(): List<String> = listOf(
         {{#each commands}}
-        "{{this}}"{{#unless @last}},{{/unless}}
+        "{{{raw}}}"{{#unless @last}},{{/unless}}
         {{/each}}
     )
 
     fun handleCommand(command: String, payload: String?) {
         when (command) {
-            {{#each commands}}
-            "{{this}}" -> client.on{{capitalize this}}(payload)
-            {{/each}}
-            else -> mqtt.publishError("Unknown command '{{this}}' in {{capabilityName}}")
+        {{#each commands}}
+        "{{{raw}}}" -> client.on{{methodName}}(payload)
+        {{/each}}
+            else -> mqtt.publishError("Unknown command '$command' in {{capabilityName}}")
         }
     }
 }

@@ -8,50 +8,98 @@ info:
 
 defaultContentType: application/json
 
+components:
+  parameters:
+    robotId:
+      description: Unique robot identifier
+      schema:
+        type: string
+
 channels:
 
   # Robot lifecycle
   robo2mqtt/{robotId}/status:
+    parameters:
+      robotId:
+        $ref: '#/components/parameters/robotId'
     description: Robot online/offline/ready
-    messages:
-      statusMessage:
-        $ref: './schema/common.yaml#/components/messages/Status'
+    publish:
+      message:
+        $ref: '../schema/common.yaml#/components/messages/Status'
 
   # Speech
   robo2mqtt/{robotId}/cmd/speech/say:
-    messages:
-      sayMessage:
-        $ref: './schema/speech.yaml#/components/messages/SayCommand'
+    parameters:
+      robotId:
+        $ref: '#/components/parameters/robotId'
+    subscribe:
+      message:
+        $ref: '../schema/speech.yaml#/components/messages/SayCommand'
 
   # Movement
   robo2mqtt/{robotId}/cmd/movement/goto:
-    messages:
-      goToMessage:
-        $ref: './schema/movements.yaml#/components/messages/GoToCommand'
+    parameters:
+      robotId:
+        $ref: '#/components/parameters/robotId'
+    subscribe:
+      message:
+        $ref: '../schema/movement.yaml#/components/messages/GoToCommand'
 
   robo2mqtt/{robotId}/event/movement/status:
-    messages:
-      movementStatus:
-        $ref: './schema/movements.yaml#/components/messages/MovementStatus'
+    parameters:
+      robotId:
+        $ref: '#/components/parameters/robotId'
+    publish:
+      message:
+        $ref: '../schema/movement.yaml#/components/messages/MovementStatus'
 
   # UI
   robo2mqtt/{robotId}/cmd/ui/askYesNo:
-    messages:
-      askYesNo:
-        $ref: './schema/ui.yaml#/components/messages/AskYesNo'
+    parameters:
+      robotId:
+        $ref: '#/components/parameters/robotId'
+    subscribe:
+      message:
+        $ref: '../schema/ui.yaml#/components/messages/AskYesNo'
 
   robo2mqtt/{robotId}/event/ui/answer:
-    messages:
-      uiAnswer:
-        $ref: './schema/ui.yaml#/components/messages/UIAnswer'
+    parameters:
+      robotId:
+        $ref: '#/components/parameters/robotId'
+    publish:
+      message:
+        $ref: '../schema/ui.yaml#/components/messages/UIAnswer'
 
   # Apps
   robo2mqtt/{robotId}/cmd/apps/start:
-    messages:
-      startApp:
-        $ref: './schema/apps.yaml#/components/messages/StartApp'
+    parameters:
+      robotId:
+        $ref: '#/components/parameters/robotId'
+    subscribe:
+      message:
+        $ref: '../schema/apps.yaml#/components/messages/StartApp'
 
   robo2mqtt/{robotId}/event/apps/list:
-    messages:
-      appList:
-        $ref: './schema/apps.yaml#/components/messages/AppList'
+    parameters:
+      robotId:
+        $ref: '#/components/parameters/robotId'
+    publish:
+      message:
+        $ref: '../schema/apps.yaml#/components/messages/AppList'
+
+  # Media (WebRTC)
+  robo2mqtt/{robotId}/event/media/offer:
+    parameters:
+      robotId:
+        $ref: '#/components/parameters/robotId'
+    publish:
+      message:
+        $ref: '../schema/media.yaml#/components/messages/MediaOffer'
+
+  robo2mqtt/{robotId}/event/media/ice:
+    parameters:
+      robotId:
+        $ref: '#/components/parameters/robotId'
+    publish:
+      message:
+        $ref: '../schema/media.yaml#/components/messages/MediaIce'

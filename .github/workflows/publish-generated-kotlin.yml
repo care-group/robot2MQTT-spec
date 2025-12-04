@@ -1,0 +1,26 @@
+name: Publish Generated Android
+on:
+  push:
+    branches: [ main ]  # adjust if needed
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 18 }
+      - run: npm ci
+        working-directory: generators/android
+      - run: npm run generate -- ../../core/asyncapi/robo2mqtt-core.asyncapi.yaml ../../generated/android-core
+        working-directory: generators/android
+      - name: Push generated branch
+        run: |
+          git config user.name "CI"
+          git config user.email "ci@users.noreply.github.com"
+          git checkout -B generated/android
+          rm -rf ./*
+          cp -R generated/android-core/* .
+          git add .
+          git commit -m "Update generated Kotlin" || true
+          git push origin generated/android --force
